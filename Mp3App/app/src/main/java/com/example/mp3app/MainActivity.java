@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mainViewPagerAdapter.addFragment(new Fragment_Trang_Chu(), "Trang Chu");
-        mainViewPagerAdapter.addFragment(new Fragment_Tim_Kiem(), "Tim Kiem");
+        mainViewPagerAdapter.addFragment(new Fragment_Trang_Chu(), "Trang Chủ");
+        mainViewPagerAdapter.addFragment(new Fragment_Tim_Kiem(), "Tìm Kiếm");
         viewPager.setAdapter(mainViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.icontrangchu);
-        tabLayout.getTabAt(1).setIcon(R.drawable.icontimkiem);
+        tabLayout.getTabAt(1).setIcon(R.drawable.iconsearch);
     }
 
     private void anhxa() {
