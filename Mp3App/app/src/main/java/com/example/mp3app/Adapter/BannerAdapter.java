@@ -1,6 +1,7 @@
 package com.example.mp3app.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mp3app.Activity.DanhSachBaiHatActivity;
 import com.example.mp3app.Model.Quangcao;
 import com.example.mp3app.R;
 import com.squareup.picasso.Picasso;
@@ -50,6 +52,15 @@ public class BannerAdapter extends PagerAdapter {
         Picasso.with(context).load(arrayListbanner.get(position).getHinhBaiHat()).into(imgsongbanner);
         txttitlesongbanner.setText(arrayListbanner.get(position).getTenBaiHat());
         txtnoidung.setText(arrayListbanner.get(position).getNoidung());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DanhSachBaiHatActivity.class);
+                intent.putExtra("banner", arrayListbanner.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         container.addView(view);
         return view;
