@@ -27,31 +27,33 @@ import com.example.mp3app.R;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayNhacActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    TextView txtTimeSong, txtTotalTime;
-    SeekBar seekBar;
-    ImageButton imgplay, imgrepeat, imgpre, imgnext, imgrandom;
-    ViewPager viewPager;
-
-    public static ArrayList<Baihat> baihatArrayList = new ArrayList<>();
-    public static ViewPagerPlayListNhac adapternhac;
-    Fragment_Dia_Nhac fragment_dia_nhac;
-    Fragment_Play_Danh_Sach_Bai_Hat fragment_play_danh_sach_bai_hat;
+    Toolbar toolbarPlayNhac;
+    TextView txtTimeSong, txtTotaltimeSong;
+    SeekBar seekTime;
+    ImageButton imgPlay, imgNext, imgPreview, imgRepeat,imgRandom;
+    ViewPager viewPagerPlayNhac;
+    public static ArrayList<Baihat> mangBaiHat = new ArrayList<>();
+    public static ViewPagerPlayListNhac adapterNhac;
+    Fragment_Dia_Nhac fragmentDiaNhac;
+    Fragment_Play_Danh_Sach_Bai_Hat fragmentPlayDanhSachBaiHat;
     MediaPlayer mediaPlayer;
     int position = 0;
     boolean repeat = false;
-    boolean checkrandom = false;
+    boolean checkRandom = false;
+    boolean next = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_nhac);
-        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(threadPolicy);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        getDataFromIntent();
         init();
-        GetDataFromIntent();
         eventClick();
     }
 
@@ -60,9 +62,9 @@ public class PlayNhacActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(adapternhac.getItem(1) != null){
-                    if(baihatArrayList.size() > 0){
-                        fragment_dia_nhac.Playnhac(baihatArrayList.get(0).getHinhbaihat());
+                if(adapterNhac.getItem(1) != null){
+                    if(mangBaiHat.size() > 0){
+                        fragmentDiaNhac.playNhac(mangBaiHat.get(0).getHinhbaihat());
                         handler.removeCallbacks(this);
                     }else{
                         handler.postDelayed(this,300);
@@ -70,86 +72,211 @@ public class PlayNhacActivity extends AppCompatActivity {
                 }
             }
         },500);
-        imgplay.setOnClickListener(new View.OnClickListener() {
+        imgPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
-                    imgplay.setImageResource(R.drawable.iconplay);
+                    imgPlay.setImageResource(R.drawable.iconplay);
                 }else{
                     mediaPlayer.start();
-                    imgplay.setImageResource(R.drawable.iconpause);
+                    imgPlay.setImageResource(R.drawable.iconpause);
                 }
             }
         });
-        imgrepeat.setOnClickListener(new View.OnClickListener() {
+        imgRepeat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(checkrandom == false){
-                    if(checkrandom == true){
-                        checkrandom = false;
-                        imgrepeat.setImageResource(R.drawable.iconsyned);
-                        imgrandom.setImageResource(R.drawable.iconshuffled);
+            public void onClick(View v) {
+                if(repeat == false){
+                    if(checkRandom == true){
+                        checkRandom = false;
+                        imgRepeat.setImageResource(R.drawable.iconsyned);
+                        imgRandom.setImageResource(R.drawable.iconsuffle);
                     }
-                    imgrepeat.setImageResource(R.drawable.iconsyned);
+                    imgRepeat.setImageResource(R.drawable.iconsyned);
                     repeat = true;
-                } else {
-                    imgrepeat.setImageResource(R.drawable.iconrepeat);
+                }else{
+                    imgRepeat.setImageResource(R.drawable.iconrepeat);
                     repeat = false;
                 }
             }
         });
+        imgRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkRandom == false){
+                    if(repeat == true){
+                        repeat = false;
+                        imgRandom.setImageResource(R.drawable.iconshuffled);
+                        imgRepeat.setImageResource(R.drawable.iconrepeat);
+                    }
+                    imgRandom.setImageResource(R.drawable.iconshuffled);
+                    checkRandom = true;
+                }else{
+                    imgRandom.setImageResource(R.drawable.iconsuffle);
+                    checkRandom = false;
+                }
+            }
+        });
+        seekTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
+            }
+        });
+        imgNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mangBaiHat.size() > 0){
+                    if(mediaPlayer.isPlaying() || mediaPlayer!= null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    if (position < (mangBaiHat.size())){
+                        imgPlay.setImageResource(R.drawable.iconpause);
+                        position++;
+                        if(repeat == true){
+                            if(position == 0){
+                                position = mangBaiHat.size();
+                            }
+                            position -= 1;
+                        }
+                        if (checkRandom == true){
+                            Random random = new Random();
+                            int index = random.nextInt(mangBaiHat.size());
+                            if (index == position){
+                                position = index - 1;
+                            }
+                            position = index;
+                        }
+                        if(position > (mangBaiHat.size()) - 1){
+                            position = 0;
+                        }
+                        new PlayMp3().execute(mangBaiHat.get(position).getLinkbaihat());
+                        fragmentDiaNhac.playNhac(mangBaiHat.get(position).getHinhbaihat());
+                        getSupportActionBar().setTitle(mangBaiHat.get(position).getTenbaihat());
+                        updateTime();
+                    }
+                }
+                imgPreview.setClickable(false);
+                imgNext.setClickable(false);
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgPreview.setClickable(true);
+                        imgNext.setClickable(true);
+                    }
+                },5000);
+            }
+        });
+        imgPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mangBaiHat.size() > 0){
+                    if(mediaPlayer.isPlaying() || mediaPlayer!= null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    if (position < (mangBaiHat.size())){
+                        imgPlay.setImageResource(R.drawable.iconpause);
+                        position--;
+                        if(position < 0){
+                            position = mangBaiHat.size() - 1;
+                        }
+                        if(repeat == true){
+                            position += 1;
+                        }
+                        if (checkRandom == true){
+                            Random random = new Random();
+                            int index = random.nextInt(mangBaiHat.size());
+                            if (index == position){
+                                position = index - 1;
+                            }
+                            position = index;
+                        }
+                        new PlayMp3().execute(mangBaiHat.get(position).getLinkbaihat());
+                        fragmentDiaNhac.playNhac(mangBaiHat.get(position).getHinhbaihat());
+                        getSupportActionBar().setTitle(mangBaiHat.get(position).getTenbaihat());
+                        updateTime();
+                    }
+                }
+                imgPreview.setClickable(false);
+                imgNext.setClickable(false);
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgPreview.setClickable(true);
+                        imgNext.setClickable(true);
+                    }
+                },5000);
+            }
+        });
     }
 
-    private void GetDataFromIntent() {
+    private void getDataFromIntent() {
         Intent intent = getIntent();
-        baihatArrayList.clear();
+        mangBaiHat.clear();
         if(intent != null){
             if(intent.hasExtra("cakhuc")){
-                Baihat baihat = intent.getParcelableExtra("cakhuc");
-                baihatArrayList.add(baihat);
+                Baihat baiHat = intent.getParcelableExtra("cakhuc");
+                mangBaiHat.add(baiHat);
             }
             if(intent.hasExtra("cacbaihat")){
-                ArrayList<Baihat> arrayListbaihat = intent.getParcelableArrayListExtra("cacbaihat");
-                baihatArrayList = arrayListbaihat;
+                ArrayList<Baihat> baiHatArrayList = intent.getParcelableArrayListExtra("cacbaihat");
+                mangBaiHat = baiHatArrayList;
             }
         }
     }
 
     private void init() {
-        toolbar = findViewById(R.id.toolbarplaynhac);
-        txtTimeSong = findViewById(R.id.txttimesong);
-        txtTotalTime = findViewById(R.id.txttotaltimesong);
-        seekBar = findViewById(R.id.seekbarsong);
-        imgplay = findViewById(R.id.imgbuttonplay);
-        imgrepeat = findViewById(R.id.imgbuttonrepeat);
-        imgnext = findViewById(R.id.imgbuttonnext);
-        imgpre = findViewById(R.id.imgbuttonpre);
-        imgrandom = findViewById(R.id.imgbuttonsuffle);
-        viewPager = findViewById(R.id.viewpagerplaynhac);
-        setSupportActionBar(toolbar);
+        toolbarPlayNhac = findViewById(R.id.toolbarplaynhac);
+        txtTimeSong = findViewById(R.id.textviewtimesong);
+        txtTotaltimeSong = findViewById(R.id.textviewtotaltimesong);
+        seekTime = findViewById(R.id.seekbarsong);
+        imgPlay = findViewById(R.id.imagebuttonplay);
+        imgRepeat = findViewById(R.id.imagebuttonrepeat);
+        imgNext = findViewById(R.id.imagebuttonnext);
+        imgRandom = findViewById(R.id.imagebuttonsuffle);
+        imgPreview = findViewById(R.id.imagebuttonpreview);
+        viewPagerPlayNhac = findViewById(R.id.viewpagerplaynhac);
+        setSupportActionBar(toolbarPlayNhac);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarPlayNhac.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 finish();
                 mediaPlayer.stop();
-                baihatArrayList.clear();
+                mangBaiHat.clear();
             }
         });
-        toolbar.setTitleTextColor(Color.WHITE);
-        fragment_dia_nhac = new Fragment_Dia_Nhac();
-        fragment_play_danh_sach_bai_hat = new Fragment_Play_Danh_Sach_Bai_Hat();
-        adapternhac = new ViewPagerPlayListNhac(getSupportFragmentManager());
-        adapternhac.AddFragment(fragment_play_danh_sach_bai_hat);
-        adapternhac.AddFragment(fragment_dia_nhac);
-        viewPager.setAdapter(adapternhac);
-        fragment_dia_nhac = (Fragment_Dia_Nhac) adapternhac.getItem(1);
-        if(baihatArrayList.size() > 0){
-            getSupportActionBar().setTitle(baihatArrayList.get(0).getTenbaihat());
-            new PlayMp3().execute(baihatArrayList.get(0).getLinkbaihat());
-            imgplay.setImageResource(R.drawable.iconpause);
+        toolbarPlayNhac.setTitleTextColor(Color.WHITE);
+        fragmentDiaNhac = new Fragment_Dia_Nhac();
+        fragmentPlayDanhSachBaiHat = new Fragment_Play_Danh_Sach_Bai_Hat();
+        adapterNhac = new ViewPagerPlayListNhac(getSupportFragmentManager());
+        adapterNhac.AddFragment(fragmentPlayDanhSachBaiHat);
+        adapterNhac.AddFragment(fragmentDiaNhac);
+        viewPagerPlayNhac.setAdapter(adapterNhac);
+        fragmentDiaNhac = (Fragment_Dia_Nhac) adapterNhac.getItem(1);
+        if(mangBaiHat.size() > 0){
+            getSupportActionBar().setTitle(mangBaiHat.get(0).getTenbaihat());
+            new PlayMp3().execute(mangBaiHat.get(0).getLinkbaihat());
+            imgPlay.setImageResource(R.drawable.iconpause);
         }
+
     }
 
     class PlayMp3 extends AsyncTask<String, Void, String>{
@@ -185,6 +312,80 @@ public class PlayNhacActivity extends AppCompatActivity {
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
         txtTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
-        seekBar.setMax(mediaPlayer.getDuration());
+        seekTime.setMax(mediaPlayer.getDuration());
     }
+
+    private void updateTime(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null){
+                    seekTime.setProgress(mediaPlayer.getCurrentPosition());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                    txtTimeSong.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
+                    handler.postDelayed(this,300);
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            next = true;
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        },300);
+        final Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(next == true){
+                    if (position < (mangBaiHat.size())){
+                        imgPlay.setImageResource(R.drawable.iconpause);
+                        position++;
+                        if(repeat == true){
+                            if(position == 0){
+                                position = mangBaiHat.size();
+                            }
+                            position -= 1;
+                        }
+                        if (checkRandom == true){
+                            Random random = new Random();
+                            int index = random.nextInt(mangBaiHat.size());
+                            if (index == position){
+                                position = index - 1;
+                            }
+                            position = index;
+                        }
+                        if(position > (mangBaiHat.size()) - 1){
+                            position = 0;
+                        }
+                        new PlayMp3().execute(mangBaiHat.get(position).getLinkbaihat());
+                        fragmentDiaNhac.playNhac(mangBaiHat.get(position).getHinhbaihat());
+                        getSupportActionBar().setTitle(mangBaiHat.get(position).getTenbaihat());
+                    }
+
+                    imgPreview.setClickable(false);
+                    imgNext.setClickable(false);
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgPreview.setClickable(true);
+                            imgNext.setClickable(true);
+                        }
+                    },5000);
+                    next = false;
+                    handler1.removeCallbacks(this);
+                } else {
+                    handler1.postDelayed(this,1000);
+                }
+            }
+        },1000);
+    }
+
 }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mp3app.Adapter.AlbumAdapter;
 import com.example.mp3app.Model.Album;
@@ -36,7 +37,13 @@ public class Fragment_Album_Hot extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_album_hot, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewAlbum);
-        textView = view.findViewById(R.id.textviewxemthem);
+        textView = view.findViewById(R.id.textviewxemthemAlbum);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+            }
+        });
         GetData();
         return view;
     }

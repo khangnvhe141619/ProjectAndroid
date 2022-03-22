@@ -16,19 +16,18 @@ import com.example.mp3app.R;
 public class Fragment_Play_Danh_Sach_Bai_Hat extends Fragment {
 
     View view;
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewPlayNhac;
     PlayNhacAdapter playNhacAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_play_danh_sach_bai_hat, container, false);
-        recyclerView = view.findViewById(R.id.recyclerViewPlayBaiHat);
-        if(PlayNhacActivity.baihatArrayList.size() > 0){
-            playNhacAdapter = new PlayNhacAdapter(getActivity(), PlayNhacActivity.baihatArrayList);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(playNhacAdapter);
+        view = inflater.inflate(R.layout.fragment_play_danh_sach_bai_hat,container,false);
+        recyclerViewPlayNhac = view.findViewById(R.id.recycleviewplaybaihat);
+        if(PlayNhacActivity.mangBaiHat.size() > 0) {
+            playNhacAdapter = new PlayNhacAdapter(getActivity(), PlayNhacActivity.mangBaiHat);
+            recyclerViewPlayNhac.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerViewPlayNhac.setAdapter(playNhacAdapter);
         }
-
         return view;
     }
 }

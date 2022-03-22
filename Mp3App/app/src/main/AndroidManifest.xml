@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mp3App">
         <activity
+            android:name=".Activity.DanhsachtheloaitheochudeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DanhsachtacachudeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DanhsachcacplaylistActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PlayNhacActivity"
             android:exported="false" />
         <activity

@@ -24,17 +24,18 @@ public class Fragment_Dia_Nhac extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_dia_nhac, container, false);
-        circleImageView = view.findViewById(R.id.imgviewcircle);
-        objectAnimator = ObjectAnimator.ofFloat(circleImageView,"rotation", 0f,360f);
+        view = inflater.inflate(R.layout.fragment_dia_nhac,container,false);
+        circleImageView = view.findViewById(R.id.imageviewcircle);
+        objectAnimator = ObjectAnimator.ofFloat(circleImageView, "rotation",0f,360f);
         objectAnimator.setDuration(10000);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        objectAnimator.setRepeatMode(ValueAnimator.RESTART );
+        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         objectAnimator.setInterpolator(new LinearInterpolator());
+        objectAnimator.start();
         return view;
     }
 
-    public void Playnhac(String hinhanh) {
-        Picasso.with(getContext()).load(hinhanh).into(circleImageView);
+    public void playNhac(String hinhAnh){
+        Picasso.with(getContext()).load(hinhAnh).into(circleImageView);
     }
 }

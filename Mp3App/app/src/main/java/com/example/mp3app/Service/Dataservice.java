@@ -2,8 +2,10 @@ package com.example.mp3app.Service;
 
 import com.example.mp3app.Model.Album;
 import com.example.mp3app.Model.Baihat;
+import com.example.mp3app.Model.ChuDe;
 import com.example.mp3app.Model.Playlist;
 import com.example.mp3app.Model.Quangcao;
+import com.example.mp3app.Model.TheLoai;
 import com.example.mp3app.Model.Theloaitrongngay;
 
 import java.util.List;
@@ -35,4 +37,29 @@ public interface Dataservice {
     @POST("danhsachbaihat.php")
     Call<List<Baihat>> Getdanhsachbaihattheoquangcao(@Field("idquangcao") String idquangcao);
 
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Baihat>> Getdanhsachbaihattheoplaylist(@Field("idplaylist") String idplaylist);
+
+    @GET("danhsachcacplaylist.php")
+    Call<List<Playlist>> getDanhsachcacPlaylist();
+
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Baihat>> Getdanhsachcacbaihattheotheloai(@Field("idtheloai") String idtheloai);
+
+    @GET("tatcachude.php")
+    Call<List<ChuDe>> getAllChuDe();
+
+    @FormUrlEncoded
+    @POST("theloaitheochude.php")
+    Call<List<TheLoai>> Gettheloaitheochude(@Field("idchude") String idchude);
+
+    @FormUrlEncoded
+    @POST("updateluotthich.php")
+    Call<String> updateLuotThich(@Field("luotthich") String luotthich, @Field("idbaihat") String idbaihat);
+
+    @FormUrlEncoded
+    @POST("searchbaihat.php")
+    Call<List<Baihat>> getSearchBaiHat(@Field("tukhoa") String tuKhoa);
 }

@@ -1,5 +1,6 @@
 package com.example.mp3app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,10 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mp3app.Activity.DanhSachBaiHatActivity;
+import com.example.mp3app.Activity.DanhsachcacplaylistActivity;
 import com.example.mp3app.Adapter.PlaylistAdapter;
 import com.example.mp3app.Model.Playlist;
 import com.example.mp3app.R;
@@ -31,7 +35,7 @@ public class Fragment_Playlist extends Fragment {
     ListView listView;
     TextView txtTitlePlaylist, txtViewXemThemPlaylist;
     PlaylistAdapter playlistAdapter;
-    ArrayList<Playlist> mangplaylist;
+    ArrayList<Playlist> playlistArrayList;
 
     @Nullable
     @Override
@@ -41,6 +45,13 @@ public class Fragment_Playlist extends Fragment {
         txtTitlePlaylist = view.findViewById(R.id.textviewtitleplaylist);
         txtViewXemThemPlaylist = view.findViewById(R.id.textviewviewmoreplaylist);
         GetData();
+        txtViewXemThemPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DanhsachcacplaylistActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -50,10 +61,18 @@ public class Fragment_Playlist extends Fragment {
         callback.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
-                mangplaylist = (ArrayList<Playlist>) response.body();
-                playlistAdapter = new PlaylistAdapter(getActivity(), android.R.layout.simple_list_item_1,mangplaylist);
+                playlistArrayList = (ArrayList<Playlist>) response.body();
+                playlistAdapter = new PlaylistAdapter(getActivity(), android.R.layout.simple_list_item_1,playlistArrayList);
                 listView.setAdapter(playlistAdapter);
                 setListViewHeightBasedOnChildren(listView);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getActivity(), DanhSachBaiHatActivity.class);
+                        intent.putExtra("itemplaylist", playlistArrayList.get(position));
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -81,4 +100,6 @@ public class Fragment_Playlist extends Fragment {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+
+
 }

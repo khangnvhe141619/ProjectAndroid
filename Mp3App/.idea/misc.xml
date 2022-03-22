@@ -6,12 +6,20 @@
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/drawable/custom_background_banner.xml" value="0.143" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/drawable/custom_background_playnhac.xml" value="0.205" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_danh_sach_bai_hat.xml" value="0.20153985507246377" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_danhsachcacplaylist.xml" value="0.348731884057971" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_danhsachtacachude.xml" value="0.348731884057971" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_danhsachtheloaitheochude.xml" value="0.3723958333333333" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_play_nhac.xml" value="0.3233695652173913" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_album.xml" value="0.2694746376811594" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_bai_hat_hot.xml" value="0.3723958333333333" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_banner.xml" value="0.3723958333333333" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_cac_chu_de.xml" value="0.348731884057971" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_danh_sach_bai_hat.xml" value="0.3233695652173913" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_danh_sach_cac_playlist.xml" value="0.348731884057971" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_play_bai_hat.xml" value="0.3233695652173913" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_playlist.xml" value="0.29257246376811596" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_search_bai_hat.xml" value="0.3567708333333333" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/dong_the_loai_theo_chu_de.xml" value="0.3723958333333333" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_album_hot.xml" value="0.3723958333333333" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_bai_hat_yeu_thich.xml" value="0.3233695652173913" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_banner.xml" value="0.264" />
@@ -20,6 +28,7 @@
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_play_danh_sach_bai_hat.xml" value="0.3233695652173913" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_playlist.xml" value="0.3723958333333333" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/fragment_trang_chu.xml" value="0.1" />
+        <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/menu/search_view.xml" value="0.3567708333333333" />
       </map>
     </option>
   </component>
