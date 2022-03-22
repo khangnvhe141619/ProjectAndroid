@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mp3App">
         <activity
+            android:name=".Activity.DanhsachtatcaAlbumActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.DanhsachtheloaitheochudeActivity"
             android:exported="false" />
         <activity

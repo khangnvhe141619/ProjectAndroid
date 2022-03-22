@@ -82,6 +82,22 @@ public class DanhSachBaiHatActivity extends AppCompatActivity {
     }
 
     private void getDataAlbum(String idAlbum) {
+        Dataservice dataservice = APIService.getService();
+        Call<List<Baihat>> callback = dataservice.GetDanhsachbaihattheoalbum(idAlbum);
+        callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                baihatArrayList = (ArrayList<Baihat>) response.body();
+                danhSachBaiHatAdapter = new DanhSachBaiHatAdapter(DanhSachBaiHatActivity.this, baihatArrayList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(DanhSachBaiHatActivity.this));
+                recyclerView.setAdapter(danhSachBaiHatAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getDataTheLoai(String idtheloai) {
