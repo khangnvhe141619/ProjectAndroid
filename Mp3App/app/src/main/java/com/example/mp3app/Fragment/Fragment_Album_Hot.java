@@ -1,5 +1,6 @@
 package com.example.mp3app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mp3app.Activity.DanhsachtatcaAlbumActivity;
 import com.example.mp3app.Adapter.AlbumAdapter;
 import com.example.mp3app.Model.Album;
 import com.example.mp3app.R;
@@ -29,21 +31,29 @@ public class Fragment_Album_Hot extends Fragment {
 
     View view;
     RecyclerView recyclerView;
-    TextView textView;
+    TextView textviewxemthemAlbum;
     AlbumAdapter albumAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_album_hot, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewAlbum);
-        textView = view.findViewById(R.id.textviewxemthem);
+        textviewxemthemAlbum = view.findViewById(R.id.textviewxemthemAlbum);
+        textviewxemthemAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DanhsachtatcaAlbumActivity.class);
+                startActivity(intent);
+            }
+        });
         GetData();
         return view;
     }
 
     private void GetData() {
         Dataservice dataservice = APIService.getService();
-        Call<List<Album>> callback  = dataservice.GetAlbumHot();
+        Call<List<Album>> callback = dataservice.GetAlbumHot();
         callback.enqueue(new Callback<List<Album>>() {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {

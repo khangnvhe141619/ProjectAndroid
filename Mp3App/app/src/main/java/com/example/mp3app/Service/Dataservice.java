@@ -35,4 +35,11 @@ public interface Dataservice {
     @POST("danhsachbaihat.php")
     Call<List<Baihat>> Getdanhsachbaihattheoquangcao(@Field("idquangcao") String idquangcao);
 
+    @GET("tatcaalbum.php")
+    Call<List<Album>> GetAllAlbum();
+
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Baihat>> GatDanhsachbaihattheoalbum(@Field("idalbum") String idalbum);
+
 }

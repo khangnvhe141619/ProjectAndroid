@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/activity_danh_sach_bai_hat.xml" value="0.14266304347826086" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/activity_danhsachtatca_album.xml" value="0.14266304347826086" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/dong_album.xml" value="0.20416666666666666" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/dong_all_album.xml" value="0.22" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/fragment_album_hot.xml" value="0.14" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/fragment_chude_theloai_today.xml" value="0.25" />
+        <entry key="..\:/Clone-git/ProjectAndroid/Mp3App/app/src/main/res/layout/fragment_trang_chu.xml" value="0.1" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/drawable/custom_background_banner.xml" value="0.143" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/drawable/custom_background_playnhac.xml" value="0.205" />
         <entry key="..\:/FPT/7-Spring2022/PRM391/APPMUSIC/Mp3App/app/src/main/res/layout/activity_danh_sach_bai_hat.xml" value="0.20153985507246377" />
