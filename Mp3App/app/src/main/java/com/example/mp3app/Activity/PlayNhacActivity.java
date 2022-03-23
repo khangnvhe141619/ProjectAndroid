@@ -306,12 +306,13 @@ public class PlayNhacActivity extends AppCompatActivity {
             }
             mediaPlayer.start();
             TimeSong();
+            updateTime();
         }
     }
 
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-        txtTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
+        txtTotaltimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
         seekTime.setMax(mediaPlayer.getDuration());
     }
 
