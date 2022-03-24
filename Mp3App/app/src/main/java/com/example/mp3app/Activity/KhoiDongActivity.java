@@ -1,6 +1,5 @@
 package com.example.mp3app.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.example.mp3app.MainActivity;
 import com.example.mp3app.R;
 
 public class KhoiDongActivity extends AppCompatActivity {
@@ -38,7 +36,7 @@ public class KhoiDongActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             }, 7000);
         }

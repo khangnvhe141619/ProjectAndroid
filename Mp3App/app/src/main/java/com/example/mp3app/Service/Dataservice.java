@@ -1,10 +1,12 @@
 package com.example.mp3app.Service;
 
+import com.example.mp3app.Model.Account;
 import com.example.mp3app.Model.Album;
 import com.example.mp3app.Model.Baihat;
 import com.example.mp3app.Model.ChuDe;
 import com.example.mp3app.Model.Playlist;
 import com.example.mp3app.Model.Quangcao;
+import com.example.mp3app.Model.ResponseModel;
 import com.example.mp3app.Model.TheLoai;
 import com.example.mp3app.Model.Theloaitrongngay;
 
@@ -69,4 +71,13 @@ public interface Dataservice {
 
     @GET("tatcaalbum.php")
     Call<List<Album>> GetAllAlbum();
+
+    @FormUrlEncoded
+    @POST("dangnhap.php")
+    Call<List<Account>> login(@Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
+
+    @FormUrlEncoded
+    @POST("dangki.php")
+    Call<String> Register(@Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
+
 }

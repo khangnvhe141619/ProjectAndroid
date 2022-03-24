@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="mautim">#a845de</color>
+    <color name="colorPrimary">#A6A6A6</color>
+    <color name="colorPrimaryDark">#818181</color>
+    <color name="colorAccent">#03DAC5</color>
 </resources>
