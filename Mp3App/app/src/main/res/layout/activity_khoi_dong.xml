@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.KhoiDongActivity"
-    android:background="#721799">
+    android:background="#000">
 
     <ImageView
     android:visibility="gone"
     android:id="@+id/logomain"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/logo600"
+    android:src="@drawable/karameta2"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
